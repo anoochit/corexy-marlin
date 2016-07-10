@@ -98,7 +98,7 @@
 // This determines the communication speed of the printer
 // :[2400,9600,19200,38400,57600,115200,250000]
 //#define BAUDRATE 250000
-#define BAUDRATE 115200
+#define BAUDRATE 250000
 
 // Enable the Bluetooth serial interface on AT90USB devices
 //#define BLUETOOTH
@@ -162,14 +162,14 @@
 // 71 is 100k Honeywell thermistor 135-104LAF-J01 (4.7k pullup)
 // 8 is 100k 0603 SMD Vishay NTCS0603E3104FXT (4.7k pullup)
 // 9 is 100k GE Sensing AL03006-58.2K-97-G1 (4.7k pullup)
-// 10 is 100k RS thermistor 198-961 (4.7k pullup)
+// 10 is 100k RS thermistor 198-961 (4.7kz pullup)
 // 11 is 100k beta 3950 1% thermistor (4.7k pullup)
 // 12 is 100k 0603 SMD Vishay NTCS0603E3104FXT (4.7k pullup) (calibrated for Makibox hot bed)
 // 13 is 100k Hisens 3950  1% up to 300°C for hotend "Simple ONE " & "Hotend "All In ONE"
 // 20 is the PT100 circuit found in the Ultimainboard V2.x
 // 60 is 100k Maker's Tool Works Kapton Bed Thermistor beta=3950
 // 70 is the 100K thermistor found in the bq Hephestos 2
-//
+// 
 //    1k ohm pullup tables - This is not normal, you would have to have changed out your 4.7k for 1k
 //                          (but gives greater accuracy and more stable PID)
 // 51 is 100k thermistor - EPCOS (1k pullup)
@@ -535,7 +535,7 @@ const bool Z_MIN_PROBE_ENDSTOP_INVERTING = true; // set to true to invert the lo
 //============================ Mesh Bed Leveling ============================
 //===========================================================================
 
-#define MESH_BED_LEVELING    // Enable mesh bed leveling.
+//#define MESH_BED_LEVELING    // Enable mesh bed leveling.
 
 #if ENABLED(MESH_BED_LEVELING)
   #define MESH_MIN_X 10
@@ -560,7 +560,7 @@ const bool Z_MIN_PROBE_ENDSTOP_INVERTING = true; // set to true to invert the lo
 
 // @section bedlevel
 
-//#define AUTO_BED_LEVELING_FEATURE // Delete the comment to enable (remove // at the start of the line)
+#define AUTO_BED_LEVELING_FEATURE // Delete the comment to enable (remove // at the start of the line)
 //#define DEBUG_LEVELING_FEATURE
 #define Z_MIN_PROBE_REPEATABILITY_TEST  // If not commented out, Z Probe Repeatability test will be included if Auto Bed Leveling is Enabled.
 
@@ -584,8 +584,8 @@ const bool Z_MIN_PROBE_ENDSTOP_INVERTING = true; // set to true to invert the lo
   #if ENABLED(AUTO_BED_LEVELING_GRID)
 
     #define LEFT_PROBE_BED_POSITION 15
-    #define RIGHT_PROBE_BED_POSITION 170
-    #define FRONT_PROBE_BED_POSITION 20
+    #define RIGHT_PROBE_BED_POSITION 155
+    #define FRONT_PROBE_BED_POSITION 50
     #define BACK_PROBE_BED_POSITION 170
 
     #define MIN_PROBE_EDGE 10 // The Z probe minimum square sides can be no smaller than this.
@@ -643,7 +643,7 @@ const bool Z_MIN_PROBE_ENDSTOP_INVERTING = true; // set to true to invert the lo
 
   // A fix mounted probe, like the normal inductive probe, must be deactivated to go below Z_PROBE_OFFSET_FROM_EXTRUDER
   // when the hardware endstops are active.
-  //#define FIX_MOUNTED_PROBE
+  #define FIX_MOUNTED_PROBE
 
   // A Servo Probe can be defined in the servo section below.
 
@@ -701,18 +701,18 @@ const bool Z_MIN_PROBE_ENDSTOP_INVERTING = true; // set to true to invert the lo
  */
 
 //#define HOMING_FEEDRATE {50*60, 50*60, 4*60, 0}  // set the homing speeds (mm/min)
-#define HOMING_FEEDRATE {90*60, 90*60, 30*60, 0}  // set the homing speeds (mm/min)
+#define HOMING_FEEDRATE {60*60, 60*60, 30*60, 0}  // set the homing speeds (mm/min)
 
 // default settings
 
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {160,160,395,102.2}  // default steps per unit for Ultimaker
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,395,294.1} // extruder for 60N.cm
 //#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,395,176.0} // extruder for 58N.cm
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,395,176.0,176.0}
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,395,176.0,204.0}
 //#define DEFAULT_MAX_FEEDRATE          {300, 300, 5, 25}    // (mm/sec)
 //#define DEFAULT_MAX_FEEDRATE          {300, 300, 5, 50}    // (mm/sec) for 60N.cm E3D v5
 //#define DEFAULT_MAX_FEEDRATE          {300, 300, 5, 600}    // (mm/sec) for 58N.cm E3D v5
-#define DEFAULT_MAX_FEEDRATE          {300, 300, 5, 120,120}      // (mm/sec) for 58N.cm E3D Chimera
+#define DEFAULT_MAX_FEEDRATE          {300, 300, 5, 220,220}      // (mm/sec) for 58N.cm E3D Chimera
 #define DEFAULT_MAX_ACCELERATION      {3000,3000,100,10000,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
 
 #define DEFAULT_ACCELERATION          3000    // X, Y, Z and E acceleration in mm/s^2 for printing moves
@@ -950,7 +950,7 @@ const bool Z_MIN_PROBE_ENDSTOP_INVERTING = true; // set to true to invert the lo
 
 //
 // BQ LCD Smart Controller shipped by
-// default with the BQ Hephestos 2 and Witbox 2.
+// default with the BQ Hephestos 2 and Witbox 2.,
 //
 //#define BQ_LCD_SMART_CONTROLLER
 

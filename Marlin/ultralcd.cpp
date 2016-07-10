@@ -1106,8 +1106,8 @@ static void lcd_prepare_menu() {
   MENU_ITEM(function, MSG_SET_HOME_OFFSETS, lcd_set_home_offsets);
   //MENU_ITEM(gcode, MSG_SET_ORIGIN, PSTR("G92 X0 Y0 Z0"));
 
-  // Set Move Z-Max
-  MENU_ITEM(gcode, "Move Z Max", PSTR("G90\nG0 Z155 F150"));
+  // Move XY to home and Z to max
+  MENU_ITEM(gcode, "Repair Mode", PSTR("G90\G0 X0 Y0\nG0 Z155"));
 
   // Feed Extruder 0
   MENU_ITEM(gcode, "Feed Extruder 0", PSTR("G28"));
