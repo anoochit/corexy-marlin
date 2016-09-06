@@ -1107,13 +1107,26 @@ static void lcd_prepare_menu() {
   //MENU_ITEM(gcode, MSG_SET_ORIGIN, PSTR("G92 X0 Y0 Z0"));
 
   // Move XY to home and Z to max
-  MENU_ITEM(gcode, "Repair Mode", PSTR("G90\G0 X0 Y0\nG0 Z155"));
+  MENU_ITEM(gcode, "Repair mode", PSTR("G90\G0 X0 Y0\nG0 Z155"));
+
+  // load filament extruder 0 10mm
+  MENU_ITEM(gcode, "Load extruder 0", PSTR("T0 *23\nG91 *15\nG1 E10 F120.00 *5\nG90 *0"));
+
+  // load filament extruder 1 10mm
+  MENU_ITEM(gcode, "Load extruder 1", PSTR("T1 *23\nG91 *15\nG1 E10 F120.00 *5\nG90 *0"));
 
   // Feed Extruder 0
-  MENU_ITEM(gcode, "Feed Extruder 0", PSTR("G28"));
+  MENU_ITEM(gcode, "Feed extruder 0", PSTR("T0 *23\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90"));
 
   // Feed Extruder 1
-  MENU_ITEM(gcode, "Feed Extruder 1", PSTR("G28"));
+  MENU_ITEM(gcode, "Feed extruder 1", PSTR("T1 *23\nG91 *15\nG1 E100 F1000 *5\nG90"));
+
+  // unload filament extruder 0 
+  MENU_ITEM(gcode, "Unload extruder 0", PSTR("T0 *23\nG91 *15\nG1 E-650 F1000 *5\nG90"));
+
+  // unload filament extruder 1
+  MENU_ITEM(gcode, "Unload extruder 1", PSTR("T1 *23\nG91 *15\nG1 E-650 F1000 *5\nG90"));
+  
 
   //
   // Level Bed
