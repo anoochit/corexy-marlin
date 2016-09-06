@@ -89,6 +89,7 @@ static void lcd_status_screen();
   static void lcd_main_menu();
   static void lcd_tune_menu();
   static void lcd_prepare_menu();
+  static void lcd_filament_menu();
   static void lcd_move_menu();
   static void lcd_control_menu();
   static void lcd_control_temperature_menu();
@@ -1109,24 +1110,8 @@ static void lcd_prepare_menu() {
   // Move XY to home and Z to max
   MENU_ITEM(gcode, "Repair mode", PSTR("G90\G0 X0 Y0\nG0 Z155"));
 
-  // load filament extruder 0 10mm
-  MENU_ITEM(gcode, "Load extruder 0", PSTR("T0 *23\nG91 *15\nG1 E10 F120.00 *5\nG90 *0"));
-
-  // load filament extruder 1 10mm
-  MENU_ITEM(gcode, "Load extruder 1", PSTR("T1 *23\nG91 *15\nG1 E10 F120.00 *5\nG90 *0"));
-
-  // Feed Extruder 0
-  MENU_ITEM(gcode, "Feed extruder 0", PSTR("T0 *23\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90"));
-
-  // Feed Extruder 1
-  MENU_ITEM(gcode, "Feed extruder 1", PSTR("T1 *23\nG91 *15\nG1 E100 F1000 *5\nG90"));
-
-  // unload filament extruder 0 
-  MENU_ITEM(gcode, "Unload extruder 0", PSTR("T0 *23\nG91 *15\nG1 E-650 F1000 *5\nG90"));
-
-  // unload filament extruder 1
-  MENU_ITEM(gcode, "Unload extruder 1", PSTR("T1 *23\nG91 *15\nG1 E-650 F1000 *5\nG90"));
-  
+  // Filament menu
+  MENU_ITEM(submenu, "Filament", lcd_filament_menu);
 
   //
   // Level Bed
@@ -1185,6 +1170,42 @@ static void lcd_prepare_menu() {
     MENU_ITEM(function, MSG_AUTOSTART, lcd_autostart_sd);
   #endif
 
+  END_MENU();
+}
+
+/*
+ * Load Filament
+ * 
+ */
+
+static void lcd_filament_menu() {
+  START_MENU();
+  MENU_ITEM(back, MSG_PREPARE);
+  
+  // load filament extruder 0 10mm
+  MENU_ITEM(gcode, "Load extruder 1", PSTR("T0 *23\nG91 *15\nG1 E50 F250.00 *5\nG90 *0"));
+  
+  #if EXTRUDERS > 1
+  // load filament extruder 1 10mm
+  MENU_ITEM(gcode, "Load extruder 2", PSTR("T1 *23\nG91 *15\nG1 E50 F250.00 *5\nG90 *0"));
+  #endif
+  
+  // Feed Extruder 0
+  MENU_ITEM(gcode, "Feed extruder 1", PSTR("T0 *23\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90"));
+
+  #if EXTRUDERS > 1
+  // Feed Extruder 1
+  MENU_ITEM(gcode, "Feed extruder 2", PSTR("T1 *23\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90\nG91 *15\nG1 E100 F1000 *5\nG90"));
+  #endif
+  
+  // unload filament extruder 0 
+  MENU_ITEM(gcode, "Unload extruder 1", PSTR("T0 *23\nG91 *15\nG1 E-100 F1000 *5\nG90\nG91 *15\nG1 E-100 F1000 *5\nG90\nG91 *15\nG1 E-100 F1000 *5\nG90\nG91 *15\nG1 E-100 F1000 *5\nG90\nG91 *15\nG1 E-100 F1000 *5\nG90\nG91 *15\nG1 E-100 F1000 *5\nG90"));
+
+  #if EXTRUDERS > 1
+  // unload filament extruder 1
+  MENU_ITEM(gcode, "Unload extruder 2", PSTR("T1 *23\nG91 *15\n\nG1 E-100 F1000 *5\nG90\nG91 *15\nG1 E-100 F1000 *5\nG90\nG91 *15\nG1 E-100 F1000 *5\nG90\nG91 *15\nG1 E-100 F1000 *5\nG90\nG91 *15\nG1 E-100 F1000 *5\nG90\nG91 *15\nG1 E-100 F1000 *5\nG90"));
+  #endif
+  
   END_MENU();
 }
 
